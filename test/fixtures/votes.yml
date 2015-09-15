@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+vote1:
+  name: "Gibson"
+  #movie: "alien"
+
+vote2:
+  name: "Miles"
+  #movie: "tron"
