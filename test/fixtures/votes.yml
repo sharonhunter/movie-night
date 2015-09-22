@@ -2,8 +2,11 @@
 
 vote1:
   name: "Gibson"
-  #movie: "alien"
+  movie: "Alien"
+  event: "January"
+
 
 vote2:
   name: "Miles"
-  #movie: "tron"
+  movie: "Tron"
+  event: "January"
