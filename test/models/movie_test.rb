@@ -2,10 +2,17 @@ require 'test_helper'
 
 class MovieTest < ActiveSupport::TestCase
 
+  def setup
+    @movie = movies(:alien)
+  end
+  
   test 'has a valid fixture' do
-    @movie = movies(:lebowski)
+    @movie = movies(:alien)
     assert @movie.valid?
   end
+
+  should belong_to(:event)
+  should have_many(:votes)
   
   # this line 9 is shoulda matcher, can replace line 11-22
   should validate_presence_of(:title)

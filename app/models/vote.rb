@@ -1,6 +1,8 @@
 class Vote < ActiveRecord::Base
-	validates :name, presence: true
-	#validates_presence_of :movie, presence: true
+	
+	belongs_to :event
+	belongs_to :movie
 
-	#belongs_to :movie
+	validates :name, presence: true
+
 end

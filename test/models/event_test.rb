@@ -15,6 +15,10 @@ class EventTest < ActiveSupport::TestCase
   # 	refute @event.valid?
   # end
 
+
+  should have_many(:movies)
+  should have_many(:votes)
+  
   #shoulda equivalent of the above 13-16
   should validate_presence_of(:occurs_at)
 
