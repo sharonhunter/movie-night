@@ -10,10 +10,10 @@ class EventsTest < ActionDispatch::IntegrationTest
     assert page.has_content?('Events')
 
     assert page.has_content?(january.location)
-    assert page.has_content?(january.occurs_at)
+    assert page.has_content?(january.occurs_at.strftime("%b %d, %Y %I:%M %p"))
 
     assert page.has_content?(february.location)
-    assert page.has_content?(february.occurs_at)
+    assert page.has_content?(february.occurs_at.strftime("%b %d, %Y %I:%M %p"))
   end
 
   test 'Can show an individual event' do
@@ -26,25 +26,7 @@ class EventsTest < ActionDispatch::IntegrationTest
   	assert has_content?('Event')
 
   	assert page.has_content?(january.location)
-  	assert page.has_content?(january.occurs_at)
+  	assert page.has_content?(january.occurs_at.strftime("%b %d, %Y %I:%M %p"))
   end
 
-  # test 'Can create events' do
-  # 	event_date = 10.days.from_now
-    #event_time = beginning_of_hour(8)
-
-  	# visit events_path
-
-  	# click_link('Create Event')
-
-  	# fill_in 'Location', with: 'Industry'
-  	# fill_in 'date', with: event_date
-    #fill_in 'Time', with: event_time
-
-  	# click_button 'Create Event'
-
-  	# assert page.has_content?('Industry')
-  	# assert page.has_content?(event_date)
-    #assert page.has_content?(event_time)
-  # end
 end

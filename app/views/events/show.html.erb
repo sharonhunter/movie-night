@@ -1,0 +1,13 @@
+<h1>Event</h1>
+
+<p>
+  <strong>Location:</strong>
+  <%= @event.location %>
+</p>
+
+<p>
+  <strong>Date/Time:</strong> 
+  <%= @event.occurs_at.strftime("%b %d, %Y %I:%M %p") %>
+</p>
+
+<%= link_to 'Back to All Events', events_path %>

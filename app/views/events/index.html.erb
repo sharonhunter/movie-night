@@ -1,0 +1,23 @@
+<h1>Events</h1>
+
+<table>
+  
+  <thead>
+    <tr>
+      <th>Location</th>
+      <th>Date/Time</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= link_to event.location, event_path(event) %></td>
+        <td><%= event.occurs_at.strftime("%b %d, %Y %I:%M %p") %></td>
+      </tr>
+    <% end %>
+  
+  </tbody>
+</table>
+
+<%= link_to 'Create Event', new_event_path %>
