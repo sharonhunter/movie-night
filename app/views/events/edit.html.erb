@@ -1,2 +1,14 @@
-<h1>Events#edit</h1>
-<p>Find me in app/views/events/edit.html.erb</p>
+<h1>Edit This Event</h1>
+
+<%= form_for(@event) do |f| %>
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+
+    <%= f.label :date %>
+    <%= f.date_select :occurs_at %>
+   
+    <%= f.label :time %>
+    <%= f.time_select :occurs_at, :ignore_date => true %>
+
+    <%= f.submit %>
+<% end %>
