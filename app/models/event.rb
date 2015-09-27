@@ -1,5 +1,7 @@
 class Event < ActiveRecord::Base
 
+	attr_reader :movie
+
 	has_many :movies
 	has_many :votes
 
@@ -10,4 +12,5 @@ class Event < ActiveRecord::Base
 		message: 'There is already an event scheduled there at that time.', 
 		case_sensitive: false
 	}
+
 end
