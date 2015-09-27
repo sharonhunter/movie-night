@@ -8,7 +8,6 @@ class MovieTest < ActiveSupport::TestCase
   end
   
   test 'has a valid fixture' do
-    #@movie = movies(:alien)
     assert @movie.valid?
   end
 
@@ -20,4 +19,8 @@ class MovieTest < ActiveSupport::TestCase
   should validate_presence_of(:url)
   should validate_presence_of(:event)
 
+  should validate_uniqueness_of(:title).
+  scoped_to(:event_id).
+  with_message('Already suggested for that event.').
+  case_insensitive
 end

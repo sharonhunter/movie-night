@@ -7,4 +7,10 @@ class Movie < ActiveRecord::Base
 	validates :url, presence: true
 	validates :event, presence: true
 
+	validates :title, uniqueness: {
+		scope: :event, 
+		message: 'Already suggested for that event.', 
+		case_sensitive: false
+	}
+
 end
