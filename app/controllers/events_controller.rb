@@ -7,6 +7,10 @@ class EventsController < ApplicationController
   end
 
   def show
+    # this line had to be added to allow access to creating a movie
+    # on the event show page, it previously only returned the event using
+    # the before_action method above
+    @movie = Movie.new
   end
 
   def new

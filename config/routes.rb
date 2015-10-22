@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   
-  resources :events
+  resources :events do
+    resources :movies, only: [:create, :destroy] do
+      get 'vote', on: :member
+    end
+  end
 
   root 'events#index'
   # The priority is based upon order of creation: first created -> highest priority.

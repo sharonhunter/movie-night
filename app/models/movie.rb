@@ -13,4 +13,8 @@ class Movie < ActiveRecord::Base
 		case_sensitive: false
 	}
 
+	def vote
+	   Vote.create(movie: self, event: event)
+	end
+
 end

@@ -10,9 +10,50 @@
   <%= @event.occurs_at.strftime("%b %d, %Y %I:%M %p") %>
 </p>
 
+<h2>Suggested Movies</h2>
+<% if @event.movies.any? %>
+  <ul>
+    <% @event.movies.select { |m| m.persisted? }.each do |movie| %>
+      <li>
+        <%= link_to movie.title, movie.url %>
+        Votes: <%= movie.votes.count %>
+        <!--line below is a custom action in movies controller-->
+        <!--get the url from rake routes-->
+        <!--movie is just the block variable here-->
+        <%= link_to "Vote", vote_event_movie_path(@event, movie) %>
+        (<%= link_to "Delete", event_movie_path(@event, movie), method: :delete, data: { confirm: "Are you sure you want to delete #{movie.title}?" } %>)
+      </li>
+    <% end %>
+  </ul>
+<% end %>
 
-<%= link_to 'Edit Event', edit_event_path %> <br />
+<h2>Add a Movie</h2>
+<% if @movie.errors.any? %>
+  <ul class="error-list">
+    <% @movie.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
 
-<%= link_to 'Delete Event', event_path, method: :delete, data: { confirm: 'Are you sure?' } %><br />
+<!-- the form needs a different path referenced by the @movie object in this form
+	  so this will be /events/24/movies - this means we need nested resources/nested routes -->
+
+<%= form_for(@movie, url: event_movies_path(@event)) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :url %>
+  <%= f.text_field :url %>
+
+  <%= f.submit 'Suggest Movie' %>
+<% end %>
+
+<%= link_to 'Edit Event', edit_event_path(@event) %> <br />
+
+<%= link_to 'Delete Event', event_path(@event), method: :delete, data: { confirm: 'Are you sure?' } %><br />
+
+<!--Tim's-->
+<%#= link_to 'Delete Event', @event, method: :delete, data: { confirm: 'Are you sure?' } %><br />
 
 <%= link_to 'Back to All Events', events_path %>

@@ -1,95 +1,74 @@
 require 'test_helper'
 
 class EventsTest < ActionDispatch::IntegrationTest
-  test 'Index page shows all events' do
-    january = events(:january)
-    february = events(:february)
 
-    visit events_path
+  # refactor, for context, but adding it made all mine fail, so investigate later
+def setup
+  @january = events(:january)
+  @february = events(:february)
+  visit events_path
+end
+
+  test 'Index page shows all events' do
 
     assert page.has_content?('Events')
 
-    assert page.has_content?(january.location)
-    assert page.has_content?(january.occurs_at.strftime("%b %d, %Y %I:%M %p"))
+    assert page.has_content?(@january.location)
+    assert page.has_content?(@january.occurs_at.strftime("%b %d, %Y %I:%M %p"))
 
-    assert page.has_content?(february.location)
-    assert page.has_content?(february.occurs_at.strftime("%b %d, %Y %I:%M %p"))
+    assert page.has_content?(@february.location)
+    assert page.has_content?(@february.occurs_at.strftime("%b %d, %Y %I:%M %p"))
   end
 
   test 'Can show an individual event' do
-  	january = events(:january)
+  	
+  	click_link @january.location
 
-  	visit events_path
+    assert_equal event_path(@january), current_path
 
-  	click_link january.location
-
-  	assert has_content?('Event')
-
-  	assert page.has_content?(january.location)
-  	assert page.has_content?(january.occurs_at.strftime("%b %d, %Y %I:%M %p"))
+  	assert page.has_content?(@january.location)
+  	assert page.has_content?(@january.occurs_at.strftime("%b %d, %Y %I:%M %p"))
   end
 
-  # this test only passes when date and time info commented out
+  
   test 'Can create events' do
-    #event_date = '2015 December 25'
-    #event_time = '20:00'
-
-    visit events_path
+    event_time = 10.days.from_now
 
     click_link('Create Event')
 
     fill_in 'Location', with: 'Industry'
-    # line 41 causing failure, though actual code works, because of date/time select dropdowns
-    # fill_in 'Date', with: event_time
-
-    # from http://stackoverflow.com/questions/6729786/how-to-select-date-from-a-select-box-using-capybara-in-rails-3
-    # 'from' values are the actual select id's from inspecting element in dev tools
-    select '2015', from: 'event_occurs_at_1i'
-    select 'December', from: 'event_occurs_at_2i'
-    select '25', from: 'event_occurs_at_3i'
-
-    select '20', from: 'event_occurs_at_4i'
-    select '00', from: 'event_occurs_at_5i'
+    fill_in 'Date/Time', with: event_time.strftime("%b %d, %Y %I:%M %p")
 
     click_button 'Create Event'
 
     assert page.has_content?('Industry')
-    #assert page.has_content?(event_date)
-    #assert page.has_content?(event_time)
+    assert page.has_content?(event_time.strftime("%b %d, %Y %I:%M %p"))
   end
 
-  # this test only passes with date and time commented
+
   test 'Can update events' do
-    #event_time = 20.days.from_now
+    event_time = 20.days.from_now
 
-    january = events(:january)
-
-    visit events_path
-
-    click_link january.location
+    click_link @january.location
     click_link 'Edit Event'
 
     fill_in 'Location', with: 'New Place'
-    #fill_in 'Date/Time', with: event_time
+    fill_in 'Date/Time', with: event_time
 
     click_button 'Update Event'
 
     assert page.has_content?('New Place')
-    #assert page.has_content?(event_time)
+    assert page.has_content?(event_time.strftime("%b %d, %Y %I:%M %p"))
   end
 
   test 'Can delete events' do
-    january = events(:january)
-
-    visit events_path
-
-    click_link january.location
+    click_link @january.location
     click_link 'Delete Event'
 
     assert_equal events_path, current_path
 
-    refute page.has_content?(january.location)
-    refute page.has_content?(january.occurs_at)
+    refute page.has_content?(@january.location)
+    refute page.has_content?(@january.occurs_at)
   end
 
 end

@@ -21,4 +21,8 @@ class EventTest < ActiveSupport::TestCase
   with_message('There is already an event scheduled there at that time.').
   case_insensitive
 
+  test "event has a winning movie" do
+    assert_equal @event.winning_movie, movies(:tron)
+  end
+
 end

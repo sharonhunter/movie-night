@@ -1,0 +1,20 @@
+<% if @event.errors.any? %>
+  <ul class="error-list">
+    <% @event.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+
+
+<%= form_for(@event) do |f| %>
+    <%= f.label :location, 'The Location' %> <!--leave the first label symbol one the actual one, but you can pass a SECOND ARGUMENT to change the text of the label, while leaving the needed label functionality intact, meaning that you can click the label and the cursor goes to the field automatically- did not know this should be the behavior - check this on each form you have -->
+    <%= f.text_field :location %>
+
+	<%= f.label :occurs_at, 'Date/Time' %>
+    <%= f.text_field :occurs_at %>
+
+    <%= f.submit %>
+<% end %>
