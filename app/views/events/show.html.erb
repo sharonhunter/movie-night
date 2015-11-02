@@ -40,11 +40,15 @@
 	  so this will be /events/24/movies - this means we need nested resources/nested routes -->
 
 <%= form_for(@movie, url: event_movies_path(@event)) do |f| %>
+<div class="form-group">
   <%= f.label :title %>
   <%= f.text_field :title %>
+</div>
 
+<div class="form-group">
   <%= f.label :url %>
   <%= f.text_field :url %>
+</div>
 
   <%= f.submit 'Suggest Movie' %>
 <% end %>

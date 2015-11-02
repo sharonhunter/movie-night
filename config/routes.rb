@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  # replaced `devise_for :users` with this:
+  devise_for :users, :controllers => { registrations: 'registrations' }
+  
   resources :events do
     resources :movies, only: [:create, :destroy] do
       get 'vote', on: :member

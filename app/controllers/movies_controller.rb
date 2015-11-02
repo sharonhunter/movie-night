@@ -1,4 +1,7 @@
 class MoviesController < ApplicationController
+
+  before_action :authenticate_user!
+
 	def create
     @event = Event.find(params[:event_id])
     @movie = @event.movies.build(movie_params)

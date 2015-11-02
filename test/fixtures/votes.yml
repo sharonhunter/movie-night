@@ -1,16 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 vote1:
-  #name: "Gibson"
+  name: "Gibson"
   movie: alien
   event: january
 
 vote2:
-  #name: "Miles"
+  name: "Miles"
   movie: tron
   event: january
 
 vote3:
-  #name: "James"
+  name: "James"
   movie: tron
   event: january
